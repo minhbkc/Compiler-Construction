@@ -1,0 +1,33 @@
+PROGRAM EX1; 
+VAR result : INTEGER;
+    A : ARRAY(. 300 .) of ARRAY(. 300 .) of INTEGER;
+	n : INTEGER;
+	i : INTEGER;
+	j : INTEGER;
+	cur : INTEGER;
+	
+BEGIN
+	n := READI;
+	n := n - 1;
+	result := 1;
+	
+	for i := 0 to n do
+	begin
+		for j := 0 to n do
+		begin
+			A(. i .)(. j .) := readI;
+		end;
+	end;
+	
+	for i := 0 to n do 
+	begin
+		for j := 0 to n do
+		begin
+			cur := A(. i .)(. j .);
+			if j > i then
+				if cur != 0 then result := 0;
+		end;
+	end;
+	
+	CALL WRITEI(result);
+END.

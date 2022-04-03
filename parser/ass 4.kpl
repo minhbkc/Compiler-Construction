@@ -1,0 +1,19 @@
+Program ASS; (* Assignment 18102021 *)
+
+var n : integer; i : integer; result : integer;
+
+function squareInteger(a : integer) : integer;
+begin
+	squareInteger := a * a;
+end;
+
+begin
+	readI(n);  (*n := readI;*)
+	result := 0;
+	n := n - 1;
+	for i := 0 to n do
+		begin
+			result := result + squareInteger(i);
+		end;
+	call writeI(result);
+end; (*.*)

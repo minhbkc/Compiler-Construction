@@ -1,0 +1,25 @@
+program testNewLaw; (*Fix error for new law*)
+
+var a : integer;
+    b : integer;
+    c : integer;
+
+function sum(a : integer; b : integer) : integer;
+begin
+    sum := a + b;
+end;
+
+procedure toString(a : integer; b : integer; d : integer);
+begin
+    call writeI(a);
+    call writeC('+');
+    call writeI(b);
+    call writeC('=');
+    call writeI(d);
+end;
+  
+begin
+    a := readI;
+    b := readI;
+    call toString(a, b, sum(a, b));
+end.

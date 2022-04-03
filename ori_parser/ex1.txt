@@ -1,0 +1,31 @@
+PROGRAM Ex1; (*Lower triangular matrix*)
+var matrix : array (. 300 .) of array (.300.) of integer;
+    result : integer;
+    n : integer;
+    i : integer;
+    j : integer;
+
+begin
+   n := readI;
+   result := 1;
+   for i := 0 to n - 1 do
+   begin
+      for j := 0 to n - 1 do
+          matrix(.i.)(.j.) := readI;
+   end;
+
+   for i := 0 to n - 1 do
+   begin
+      for j := 0 to n - 1 do
+      begin
+          if i < j then 
+	  	if matrix(.i.)(.j.) != 0 then 
+                      result := 0;
+          if i > j then 
+                if matrix(.i.)(.j.) = 0 then 
+                      result := 0;    
+      end;
+   end;	
+   call writeln;
+   call writeI(result);
+end.

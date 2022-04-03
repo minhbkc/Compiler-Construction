@@ -1,0 +1,941 @@
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”: Done WriteI);
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”: Done WriteI);
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+
+Code:
+void compileBlock4(void) {
+  //compileSubDecls();
+  //compileBlock5();
+  compileFuncDecls();
+  compileBlock5();
+}
+
+void compileFuncDecls(void) {
+	while(lookAhead->tokenType == KW_FUNCTION){
+		compileFuncDecl();
+		compileFuncDecls();
+	}
+}
+
+void compileBlock5(void) {
+  //eat(KW_BEGIN);
+  //compileStatements();
+  //eat(KW_END);
+  compileProcDecls();
+  compileBlock6();
+}
+
+void compileBlock6(void){
+	eat(KW_BEGIN);
+	compileStatements();
+	eat(KW_END);
+}
+
+void compileProcDecls(void) {
+	while(lookAhead->tokenType == KW_PROCEDURE){
+		compileProcDecl();
+		compileProcDecls();
+	}
+}
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!" var a : 1; Done
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!" Function F(n : Integer;) : Integer; Done
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+If n = 0 Then F := 1 Else F := N *S F (N - 1); Done
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Suppose syntax of declarations in KPL follows the following rules
+Block  ::= Declarations Block2
+Declarations::= ConstDecls Declarations|TypeDecls Declarations VarDecls Declarations|SubDecls  Declarations|eps
+Constdecls  ::= KW_CONST ConstDecl ConstDecls2
+ConstDecls2::= ConstDecl ConstDecls2
+ConstDecls2::= eps
+TypeDecls ::= KW_TYPE TypeDecl TypeDecls2
+TypeDecls2 ::= TypeDecl TypeDecls2
+TypeDecls2 ::= eps
+VarDecls   ::= KW_VAR VarDecl VarDeclrs2
+VarDecls2  ::= VarDecl VarDecls
+VarDecls2  ::= eps
+SubDecls ::= FunDecl SubDecls|ProcDecls SubDecls|eps
+FunDecl ::= KW_FUNCTION TK_IDENT Params SB_COLON BasicType SB_SEMICOLON Block SB_SEMICOLON
+ProcDecl ::= KW_PROCEDURE TK_IDENT Params SB_SEMICOLON Block SB_SEMICOLON
+Block2 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example1.kpl so that it causes the error "Invalid type!"
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid arguments”
+2:
+Rewrite  function compileStatement (and function compileCallSt if necessary)  in case the procedure calls do not contain the keyword CALL, i.e.  the syntax rule for procedure calls as follows:
+CallSt   ::= ProcedureIdent Arguments
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid constant!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid statement”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error “Invalid term”
+2:
+Arguments ::= SB_LPAR Arguments1 SB_RPAR
+Arguments1 ::= Expression Arguments2
+Arguments1 ::= eps
+Arguments2::= SB_COMMA Expression Arguments2
+Arguments2::= eps
+________________________________________________________________
+1:
+Modify file example2.kpl so that it causes the error "Invalid parameter!"
+2:
+Block4 ::= FunDecls Block5 
+Block4 ::= Block5
+Block5 ::= ProcDecls Block6 
+Block5 ::= Block6
+FunDecls::= FunDecl FunDecls
+FunDecls::= eps
+ProcDecls::= ProcDecl  ProcDecls
+ProcDecls ::= eps
+Block6 ::= KW_BEGIN Statements KW_END
+Modify relevant functions in your parser to match the new rules
+________________________________________________________________

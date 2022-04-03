@@ -1,0 +1,4 @@
+Program Example1; (* Example 1 *)
+var hello : integer;
+Begin
+End. (* Example 1 *)

@@ -1,0 +1,18 @@
+PROGRAM Example2; (* Factorial *)
+/* test for fun */
+VAR n : Integer;
+'\'' (. '\\'.) 
+Function F(n : Integer) : INTEGER;
+BEGIN
+  For n := 1 To 000000000000070 Do
+    Begin
+      Call WriteLn;
+      Call WriteI( F(i));
+    End;
+End. (* Factorial n*) 
+[ cdscnjsnd ]
+/* jmkfmskvmfsbnsfnbfsmv
+csdkvnskvkdmsklvmdlsmvldms */
+VAR hello
+
+(. minh .) [ test ] '\''

@@ -1,0 +1,21 @@
+Program Example2; (* Factorial *) 
+Var n : Integer;
+    A : array (. 300 .) of INTEGER;
+    b : char;
+Function readC(n : Integer) : Integer;
+  Begin
+    If n = 0 Then readC := 1 Else readC := N * readC (N - 1);
+  End;
+
+procedure writeI;
+Begin
+end;
+
+Begin
+  For n := 1 To 7 Do
+    Begin
+      Call WriteLN;
+      Call WriteI( readC(n));
+    End; 
+    Call WriteC(b);
+End. (* Factorial *)

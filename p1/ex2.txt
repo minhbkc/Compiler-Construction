@@ -1,0 +1,12 @@
+PROGRAM EX2; (*SUM 2 INTEGER*)
+(* Const -> Type -> Var*)
+var s1 : integer;
+    s2 : integer;
+    re : integer;
+
+begin
+    s1 := readI;
+    s2 := readI;
+    re := s1 + s2;
+    call writeI(re);
+end.
